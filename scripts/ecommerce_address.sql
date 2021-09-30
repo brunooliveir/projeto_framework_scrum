@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `ecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `ecommerce`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: ecommerce
@@ -16,34 +18,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `endereco`
+-- Table structure for table `address`
 --
 
-DROP TABLE IF EXISTS `endereco`;
+DROP TABLE IF EXISTS `address`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `endereco` (
+CREATE TABLE `address` (
   `id` int NOT NULL,
-  `rua` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `numero` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `complemento` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cidade` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `estado` varchar(2) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cep` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cliente` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `cliente_idx` (`cliente`),
-  CONSTRAINT `cliente` FOREIGN KEY (`cliente`) REFERENCES `cliente` (`id`)
+  `street` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `number` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `complement` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `state` varchar(2) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pac` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `endereco`
+-- Dumping data for table `address`
 --
 
-LOCK TABLES `endereco` WRITE;
-/*!40000 ALTER TABLE `endereco` DISABLE KEYS */;
-/*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
+LOCK TABLES `address` WRITE;
+/*!40000 ALTER TABLE `address` DISABLE KEYS */;
+/*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-16 17:52:20
+-- Dump completed on 2021-09-23 17:26:23

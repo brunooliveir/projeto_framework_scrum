@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `ecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `ecommerce`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: ecommerce
@@ -16,27 +18,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `formas_pagamento`
+-- Table structure for table `shippingcompany`
 --
 
-DROP TABLE IF EXISTS `formas_pagamento`;
+DROP TABLE IF EXISTS `shippingcompany`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `formas_pagamento` (
+CREATE TABLE `shippingcompany` (
   `id` int NOT NULL,
-  `descricao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cnpj` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `manager` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `descricao_UNIQUE` (`descricao`)
+  KEY `address_shippingcompany_idx` (`address`),
+  CONSTRAINT `address_shippingcompany` FOREIGN KEY (`address`) REFERENCES `address` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `formas_pagamento`
+-- Dumping data for table `shippingcompany`
 --
 
-LOCK TABLES `formas_pagamento` WRITE;
-/*!40000 ALTER TABLE `formas_pagamento` DISABLE KEYS */;
-/*!40000 ALTER TABLE `formas_pagamento` ENABLE KEYS */;
+LOCK TABLES `shippingcompany` WRITE;
+/*!40000 ALTER TABLE `shippingcompany` DISABLE KEYS */;
+/*!40000 ALTER TABLE `shippingcompany` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-16 17:52:19
+-- Dump completed on 2021-09-23 17:26:24

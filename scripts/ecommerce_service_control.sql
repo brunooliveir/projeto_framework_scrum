@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `ecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `ecommerce`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: ecommerce
@@ -16,43 +18,42 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `pedido`
+-- Table structure for table `service_control`
 --
 
-DROP TABLE IF EXISTS `pedido`;
+DROP TABLE IF EXISTS `service_control`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pedido` (
+CREATE TABLE `service_control` (
   `id` int NOT NULL,
-  `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `prazo_entrega` int DEFAULT NULL,
-  `percent_desconto` int DEFAULT '0',
-  `total` decimal(10,2) DEFAULT NULL,
-  `forma_pagamento` int NOT NULL,
-  `cliente` int NOT NULL,
-  `status_pedido` int NOT NULL,
-  `valor_frete` decimal(10,2) DEFAULT NULL,
-  `transportador` int DEFAULT NULL,
-  `codigo_rastreio` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `request_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `attendant` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `closing_date` datetime DEFAULT NULL,
+  `problem_desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `solution_desc` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `client` int DEFAULT NULL,
+  `request` int DEFAULT NULL,
+  `service_status` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `forma_pagamento_pedido_idx` (`forma_pagamento`),
-  KEY `cliente_pedido_idx` (`cliente`),
-  KEY `status_pedido_idx` (`status_pedido`),
-  KEY `transportadora_idx` (`transportador`),
-  CONSTRAINT `cliente_pedido` FOREIGN KEY (`cliente`) REFERENCES `cliente` (`id`),
-  CONSTRAINT `forma_pagamento_pedido` FOREIGN KEY (`forma_pagamento`) REFERENCES `formas_pagamento` (`id`),
-  CONSTRAINT `status_pedido` FOREIGN KEY (`status_pedido`) REFERENCES `status_pedido` (`codigo`),
-  CONSTRAINT `transportadora` FOREIGN KEY (`transportador`) REFERENCES `transportadora` (`id`)
+  KEY `cliente_idx` (`client`),
+  KEY `pedido_idx` (`request`),
+  KEY `status_idx` (`service_status`),
+  KEY `cliente` (`client`),
+  KEY `pedido` (`request`),
+  KEY `status` (`service_status`),
+  CONSTRAINT `client_service_control` FOREIGN KEY (`client`) REFERENCES `client` (`id`),
+  CONSTRAINT `request_service_control` FOREIGN KEY (`request`) REFERENCES `request` (`id`),
+  CONSTRAINT `service_status_service_control` FOREIGN KEY (`service_status`) REFERENCES `service_status` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pedido`
+-- Dumping data for table `service_control`
 --
 
-LOCK TABLES `pedido` WRITE;
-/*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
+LOCK TABLES `service_control` WRITE;
+/*!40000 ALTER TABLE `service_control` DISABLE KEYS */;
+/*!40000 ALTER TABLE `service_control` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -64,4 +65,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-16 17:52:21
+-- Dump completed on 2021-09-23 17:26:23

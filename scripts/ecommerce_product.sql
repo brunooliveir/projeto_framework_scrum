@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `ecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `ecommerce`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: ecommerce
@@ -16,37 +18,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `produto`
+-- Table structure for table `product`
 --
 
-DROP TABLE IF EXISTS `produto`;
+DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `produto` (
-  `codigo` int NOT NULL,
-  `desenho` int NOT NULL,
-  `quantidade` int NOT NULL DEFAULT '0',
-  `peso` decimal(10,4) DEFAULT NULL,
-  `largura` decimal(10,2) DEFAULT NULL,
-  `altura` decimal(10,2) DEFAULT NULL,
-  `capacidade_ml` decimal(10,2) NOT NULL,
-  `valor_unitario` decimal(10,2) NOT NULL,
-  `fornecedor` int NOT NULL,
-  PRIMARY KEY (`codigo`),
-  KEY `fornecedor_idx` (`fornecedor`),
-  KEY `desenho_produto_idx` (`desenho`),
-  CONSTRAINT `desenho_produto` FOREIGN KEY (`desenho`) REFERENCES `desenho` (`codigo`),
-  CONSTRAINT `fornecedor_produto` FOREIGN KEY (`fornecedor`) REFERENCES `fornecedor` (`id`)
+CREATE TABLE `product` (
+  `code` int NOT NULL,
+  `design` int NOT NULL,
+  `quantity` int NOT NULL,
+  `weight` decimal(10,4) DEFAULT NULL,
+  `width` decimal(10,2) DEFAULT NULL,
+  `height` decimal(10,2) DEFAULT NULL,
+  `capacity` decimal(10,2) NOT NULL,
+  `unitary_value` decimal(10,2) NOT NULL,
+  `provider` int DEFAULT NULL,
+  PRIMARY KEY (`code`),
+  KEY `design_prduct_idx` (`design`),
+  KEY `provider_product_idx` (`provider`),
+  CONSTRAINT `design_product` FOREIGN KEY (`design`) REFERENCES `design` (`code`),
+  CONSTRAINT `provider_product` FOREIGN KEY (`provider`) REFERENCES `provider` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `produto`
+-- Dumping data for table `product`
 --
 
-LOCK TABLES `produto` WRITE;
-/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -58,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-16 17:52:21
+-- Dump completed on 2021-09-23 17:26:24

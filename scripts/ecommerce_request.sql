@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `ecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `ecommerce`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: ecommerce
@@ -16,32 +18,43 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cliente`
+-- Table structure for table `request`
 --
 
-DROP TABLE IF EXISTS `cliente`;
+DROP TABLE IF EXISTS `request`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cliente` (
+CREATE TABLE `request` (
   `id` int NOT NULL,
-  `nome` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cpf` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telefone` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `senha` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data_criacao` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deadline` date DEFAULT NULL,
+  `discount_percent` int DEFAULT '0',
+  `total` decimal(10,2) DEFAULT NULL,
+  `payment_forms` int NOT NULL,
+  `client` int NOT NULL,
+  `request_status` int NOT NULL,
+  `freight_value` decimal(10,2) DEFAULT NULL,
+  `shippingCompany` int DEFAULT NULL,
+  `tracking_code` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  KEY `forma_pagamento_pedido_idx` (`payment_forms`),
+  KEY `cliente_pedido_idx` (`client`),
+  KEY `status_pedido_idx` (`request_status`),
+  KEY `transportadora_idx` (`shippingCompany`),
+  CONSTRAINT `client_request` FOREIGN KEY (`client`) REFERENCES `client` (`id`),
+  CONSTRAINT `payment_forms_request` FOREIGN KEY (`payment_forms`) REFERENCES `payment_forms` (`id`),
+  CONSTRAINT `request_status_request` FOREIGN KEY (`request_status`) REFERENCES `request_status` (`code`),
+  CONSTRAINT `shippingcompany_request` FOREIGN KEY (`shippingCompany`) REFERENCES `shippingcompany` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cliente`
+-- Dumping data for table `request`
 --
 
-LOCK TABLES `cliente` WRITE;
-/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+LOCK TABLES `request` WRITE;
+/*!40000 ALTER TABLE `request` DISABLE KEYS */;
+/*!40000 ALTER TABLE `request` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +66,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-16 17:52:19
+-- Dump completed on 2021-09-23 17:26:23

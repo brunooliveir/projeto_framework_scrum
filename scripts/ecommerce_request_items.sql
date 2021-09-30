@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `ecommerce` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `ecommerce`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: ecommerce
@@ -16,27 +18,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `status_pedido`
+-- Table structure for table `request_items`
 --
 
-DROP TABLE IF EXISTS `status_pedido`;
+DROP TABLE IF EXISTS `request_items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `status_pedido` (
-  `codigo` int NOT NULL,
-  `descricao` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`codigo`),
-  UNIQUE KEY `descricao_UNIQUE` (`descricao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `request_items` (
+  `id` int NOT NULL,
+  `product` int NOT NULL,
+  `request` int NOT NULL,
+  `quantity` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `produto_itens_pedido_idx` (`product`),
+  KEY `pedido_itens_pedido_idx` (`request`),
+  CONSTRAINT `product_request_items` FOREIGN KEY (`product`) REFERENCES `product` (`code`),
+  CONSTRAINT `request_request_items` FOREIGN KEY (`request`) REFERENCES `request` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `status_pedido`
+-- Dumping data for table `request_items`
 --
 
-LOCK TABLES `status_pedido` WRITE;
-/*!40000 ALTER TABLE `status_pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `status_pedido` ENABLE KEYS */;
+LOCK TABLES `request_items` WRITE;
+/*!40000 ALTER TABLE `request_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `request_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-16 17:52:20
+-- Dump completed on 2021-09-23 17:26:24
